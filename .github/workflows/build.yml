@@ -7,7 +7,7 @@ jobs:
     name: AppImage
     runs-on: ubuntu-latest
     container:
-      image: "ubuntu:18.04"
+      image: "ubuntu:20.04"
       env:
         DEBIAN_FRONTEND: noninteractive
         APPIMAGE_EXTRACT_AND_RUN: "1"
@@ -17,7 +17,6 @@ jobs:
           apt-get update -qq
           apt-get install -y --no-install-recommends software-properties-common
           add-apt-repository -y ppa:gnuradio/gnuradio-releases
-          add-apt-repository -y ppa:git-core/ppa
           apt-get install -y --no-install-recommends \
             git \
             build-essential \
@@ -67,8 +66,8 @@ jobs:
           ldconfig
 
           cd /tmp
-          git clone https://github.com/dl1ksv/gr-fcdproplus.git
-          cd gr-fcdproplus
+          git clone https://github.com/dl1ksv/gr-funcube.git
+          cd gr-funcube
           mkdir build
           cd build
           cmake -DCMAKE_INSTALL_PREFIX=/usr ..
@@ -88,7 +87,6 @@ jobs:
           cd /tmp
           git clone https://gitea.osmocom.org/sdr/gr-iqbal.git
           cd gr-iqbal
-          git checkout gr3.8
           mkdir build
           cd build
           cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_MODULES_DIR=/usr/lib/x86_64-linux-gnu/cmake ..
@@ -99,8 +97,6 @@ jobs:
           cd /tmp
           git clone https://gitea.osmocom.org/sdr/gr-osmosdr.git
           cd gr-osmosdr
-          git checkout origin/gr3.8
-          git cherry-pick -n 9c09c90d920dd4906fa8bb9d8443eef84d2565a3
           mkdir build
           cd build
           cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_MODULES_DIR=/usr/lib/x86_64-linux-gnu/cmake -DENABLE_PYTHON=False ..

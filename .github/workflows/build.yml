@@ -186,9 +186,16 @@ jobs:
           install_name_tool -change @rpath/ad9361.framework/Versions/0.2/ad9361 /usr/local/lib/libad9361.dylib /usr/local/lib/SoapySDR/modules0.*/libPlutoSDRSupport.so
 
           cd /tmp
+          git clone https://gitea.osmocom.org/sdr/libosmo-dsp.git
+          cd libosmo-dsp
+          autoreconf -i
+          ./configure
+          make -j4
+          make install
+
+          cd /tmp
           git clone https://gitea.osmocom.org/sdr/gr-iqbal.git
           cd gr-iqbal
-          git submodule update --init --recursive
           mkdir build
           cd build
           cmake ..
